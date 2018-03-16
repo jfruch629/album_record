@@ -1,0 +1,19 @@
+<div class="users">
+  <h1> Users </h1>
+
+
+   <% if @users.blank? %>
+    <h4>There is no user containing the term <%= params[:search] %>.</h4>
+    <%= link_to 'All Users', admin_users_path, id: 'back-link'%>
+  <% end %>
+
+  <ul>
+    <% @users.each do |user| %>
+    <td><%= user.last_name %>, <%= user.first_name %>
+      <%= link_to user.email, admin_user_path(user) %></td><br />
+    <% end %>
+  </ul>
+</div>
+
+<br />
+<%= link_to 'All Users', admin_users_path, id: 'back-link'%>

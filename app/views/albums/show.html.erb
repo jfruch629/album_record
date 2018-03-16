@@ -1,0 +1,71 @@
+<div class="album" >
+<h1><%= @album.title %></h2>
+<hr>
+
+<h3>Artist:&nbsp; <%= @album.artist %><h3>
+
+<h3>Release Date:&nbsp; <%= @album.release_year %></h3>
+
+<h3>Genre:&nbsp; <%= @album.genre %> </h3>
+
+<% if @album.tracks? %>
+  <p>
+    <b>Tracks:</b><br />
+    <% @album.tracks.each_with_index do |track, n| %>
+      <%= (n + 1) %>. <%= track.to_s %><br />
+    <% end %>
+  </p>
+<% else %>
+  <p>No Tracks Listed Yet!</p>
+<% end %>
+<br /><br />
+
+ <% if @album.user == current_user %>
+   You uploaded this album!
+ <% else %>
+   <%= @user.first_name %> <%= @user.last_name %> <b>(<%= @user.email %>)</b> uploaded this album page.
+ <% end %>
+</div>
+<br />
+
+  <% if !(current_user.nil?) %>
+    <% if current_user == @album.user %>
+      <%= link_to 'Update', edit_album_path(@album) %> |
+      <%= link_to 'Delete', @album, method: :delete, data: { confirm: 'Are you sure?' }, id: 'delete' %>
+    <% end %>
+  <% end %>
+
+
+
+<%= render "reviews/form", review: @review, album: @album %>
+<br /><br />
+
+<div class="review_body_field">
+  <h3>Most Recent Reviews</h3>
+  <% if !(@album.reviews.nil?) %>
+    <tbody>
+      <% @album.reviews.each do |review| %>
+        <tr>
+            <hr><br />
+            <p>by <%= review.user.first_name %> <%= review.user.last_name %></p><br />
+            <p><%= review.body %><p>
+          <br /><br /><br />
+        </td>
+        <% if review.updated_at? %>
+          recently updated on: <%= review.updated_at.to_s %>
+        <% else %>
+          <p>reviewed on: <%= review.created_at.to_s %> </p>
+        <% end %><br />
+        <% if current_user == review.user %>
+          <%= link_to 'Edit Review', edit_album_review_path(review), id: "edit_link" %> /
+          <%= link_to "Delete Review", [@album, review], :method  => :delete %>
+        <% end %> <br /><br />
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+</div>
+<hr>
+
+ <br />
+ <%= link_to 'Back', root_path %>

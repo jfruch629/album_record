@@ -1,0 +1,11 @@
+<br /><br /><br /><br /><br />
+
+<%= form_for([@album, @review]) do |form| %>
+  <div class="review_body_field">
+    <strong>Submit your thoughts on this album, below:</strong>
+    <%= form.text_field :body, id: :review_body %>
+  </div><br />
+  <div class="actions review_body_field">
+    <%= form.submit 'Save Review' %>
+  </div>
+<% end %>
