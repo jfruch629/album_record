@@ -425,7 +425,6 @@ DEPENDENCIES
   factory_bot
   factory_bot_rails
   fog
-  fog-aws
   heroku
   jbuilder (~> 2.5)
   launchy
