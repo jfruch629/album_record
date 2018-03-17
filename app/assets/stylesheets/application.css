@@ -48,6 +48,10 @@
   a:hover   { color: #3cacae; text-decoration: none; }  /* user hovers     */
   a:active  { color: #3ec2c5; text-decoration: none; }  /* active links    */
 
+  .img {
+    display: inline;
+    transform: scale(.2, .2);
+  }
   .album a {
     font-size: 1.1em;
   }
@@ -61,6 +65,7 @@
     list-style: none;
     display: inline-block;
     margin-right: 1em;
+
   }
 
   .logo {
@@ -72,7 +77,6 @@
     margin-top: 2em;
     text-align: left;
     font-weight: bolder;
-
   }
 
   a.logo {
@@ -88,8 +92,40 @@
   }
 
   .top-bar-section li {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 3px;
+    text-decoration: none;
     display: inline-block;
-    margin-left: 1em;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .album-list-header {
+    text-align: left;
+  }
+
+  .album-list-header li {
+    font-size: 28px;
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1em;
+    margin: auto;
+    text-align: right;
+  }
+  .user-list-header {
+    text-align: left;
+  }
+
+  .user-list-header li {
+    font-size: 28px;
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1em;
+    margin: auto;
+    text-align: right;
   }
 
   .flash {
@@ -104,12 +140,16 @@
      margin: auto;
   }
 
-  .album {
+  .albums {
     font-weight: bold;
     width: 1000px;
     margin: auto;
     background-color: white;
     padding: 1em;
+  }
+
+  .album {
+    text-decoration-style: double;
   }
 
   .album p { text-align: center; }
@@ -141,11 +181,9 @@
   }
 
   .users {
-    list-style: none;
-  }
-
-  .user {
-    max-width: 1024px;
-    margin: 0 auto;
-    margin-top: 4em;
+    font-weight: bold;
+    width: 1000px;
+    margin: auto;
+    background-color: white;
+    padding: 1em;
   }

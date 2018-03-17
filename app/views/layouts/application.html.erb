@@ -12,35 +12,28 @@
     <div class ="top-bar">
       <div class="container">
         <a class="logo" href="/">AlbumReviews</a>
-        <ul class="top-bar-section">
-          <% if controller.controller_path == 'admin/users' %>
-            <%= form_tag(admin_users_path, :method => "get", id: "user-search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Enter User Info" %>
-              <%= submit_tag "Search Users", :name => nil %>
+        <div class="img">
+          <li><%= image_tag "https://plus.maths.org/issue32/outerspace/istock_lp.jpg" %></li>
+        </div>
+          <ul class="top-bar-section">
+            <% if user_signed_in? %>
+              <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %> | </li>
+              <li><%= link_to 'Edit Profile', edit_user_registration_path %> | </li>
+              <li><%= link_to 'Add Album', new_album_path %> | </li>
+              <% if current_user.admin? %>
+                <li><%= link_to "Users", admin_users_path	 %> | </li>
+                <li><%= link_to "Albums", admin_albums_path %> | </li>
+              <% end %>
+            <% else %>
+              <li><%= link_to 'Sign In', new_user_session_path %> | </li>
+              <li><%= link_to 'Sign Up', new_user_registration_path %> | </li>
             <% end %>
-          <% else %>
-            <%= form_tag(albums_path, :method => "get", id: "album-search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Enter Album Info" %>
-              <%= submit_tag "Search Albums", :name => nil %>
-            <% end %>
-          <% end %>
-          <% if user_signed_in? %>
-            <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %> | </li>
-            <li><%= link_to 'Edit Profile', edit_user_registration_path %> | </li>
-            <li><%= link_to 'Add Album', new_album_path %> | </li>
-            <% if current_user.admin? %>
-              <li><%= link_to "Users", admin_users_path	 %> | </li>
-              <li><%= link_to "Albums", admin_albums_path %> | </li>
-            <% end %>
-          <% else %>
-            <li><%= link_to 'Sign In', new_user_session_path %> | </li>
-            <li><%= link_to 'Sign Up', new_user_registration_path %> | </li>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  </div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
     <%= yield %>
   </body>
 </html>

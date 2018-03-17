@@ -1,5 +1,10 @@
 <div class="users">
-  <h1> Users </h1>
+  <div class="user-list-header">
+    <li><h1> Users </h1></li>
+    <li><%= form_tag(admin_users_path, :method => "get", id: "user-search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter User Info" %>
+    <%= submit_tag "Search Users", :name => nil %><% end %></li>
+  </div>
 
 
    <% if @users.blank? %>

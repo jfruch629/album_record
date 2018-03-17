@@ -1,6 +1,11 @@
-<div class="album">
- <h1>All Albums</h1>
- <hr>
+<div class="albums">
+  <ul class="album-list-header">
+    <li><h1>Albums</h1></li>
+    </li><%= form_tag(albums_path, :method => "get", id: "album-search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Enter Album Info" %>
+    <%= submit_tag "Search Albums", :name => nil %><% end %></li>
+    <hr>
+  </ul>
 
  <table>
    <thead>
