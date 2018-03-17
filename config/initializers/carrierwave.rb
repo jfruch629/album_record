@@ -1,5 +1,6 @@
 require 'carrierwave/storage/fog'
 
+unless ENV['AWS_ACCESS_KEY_ID'].blank?
   CarrierWave.configure do |config|
     if !Rails.env.test?
     config.fog_credentials = {
