@@ -11,5 +11,5 @@ class Album < ApplicationRecord
   where("title LIKE ? OR artist LIKE ? OR summary LIKE ? OR release_year LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
   end
 
-  mount_uploader :image, ImageUploader
+  mount_uploader :photo, PhotoUploader
 end

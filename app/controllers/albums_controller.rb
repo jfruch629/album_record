@@ -60,7 +60,7 @@ end
   end
 
   def album_params
-    params.require(:album).permit(:title, :artist, :summary, :genre, :release_year)
+    params.require(:album).permit(:title, :artist, :summary, :genre, :release_year, :tracks, :photo)
   end
 
   def authorize_user
