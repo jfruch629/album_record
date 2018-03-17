@@ -35,6 +35,10 @@
    </div>
    <br />
    <div class="field">
+     <%= f.label :image %><br />
+     <%= f.file_field :image %>
+   </div>
+   <div class="field">
      <%= f.label :track %><br />
        <% 25.times do %>
         <%= f.text_field :tracks, multiple: true, id: "album[tracks][]" %>
