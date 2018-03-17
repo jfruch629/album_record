@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
  feature 'user updates an album', %Q{
    As an authenticated user,

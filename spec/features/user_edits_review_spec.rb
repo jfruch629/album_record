@@ -10,7 +10,7 @@ require 'rails_helper'
     scenario 'authenticated user successfully updates album review' do
       user = FactoryBot.create(:user)
       album = FactoryBot.create(:album, user: user)
-      review = FactoryBot.create(:review, album: album, user: user)
+
 
        visit root_path
        click_link 'Sign In'
@@ -18,6 +18,9 @@ require 'rails_helper'
        fill_in 'Password', with: album.user.password
        click_button 'Sign In'
        click_link album.title
+
+       fill_in 'review_body', with: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
+       click_button 'Save Review'
 
        click_link 'Edit Review'
 
@@ -35,9 +38,21 @@ require 'rails_helper'
     scenario 'unauthenticated user attempts to update their previously created album review' do
       user = FactoryBot.create(:user)
       album = FactoryBot.create(:album, user: FactoryBot.create(:user))
-      review = FactoryBot.create(:review, album: album, user: user)
 
       visit root_path
+      click_link 'Sign In'
+      fill_in 'Email', with: album.user.email
+      fill_in 'Password', with: album.user.password
+      click_button 'Sign In'
+      click_link album.title
+
+      fill_in 'review_body', with: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
+      click_button 'Save Review'
+
+      click_link 'Sign Out'
+      expect(page).to have_content('Sign In')
+
+
       click_link album.title
 
       expect(page).to have_content(user.first_name)

@@ -1,5 +1,5 @@
 require 'spec_helper'
- require 'rails_helper'
+require 'rails_helper'
 
  feature 'authenticated user adds album', %Q{
    As an authenticated user,

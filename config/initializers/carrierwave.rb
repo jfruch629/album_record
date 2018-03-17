@@ -7,6 +7,9 @@ require 'carrierwave/storage/fog'
       aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     }
+
+    config.storage = :fog
+
     if Rails.env.production?
      config.fog_directory  = ENV["S3_BUCKET"]
    else

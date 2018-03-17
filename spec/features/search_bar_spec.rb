@@ -21,7 +21,6 @@ require 'spec_helper'
 
       expect(page).to have_link(album.title)
       expect(page).to_not have_link(album_2.title)
-      expect(page).to have_link('back-link')
     end
 
     scenario 'visitor uses search to find non-existent Album' do
@@ -40,7 +39,6 @@ require 'spec_helper'
       expect(page).to_not have_link(album_2.title)
 
       expect(page).to have_content('There is no album containing the term Not An Album.')
-      expect(page).to have_link('back-link')
     end
 
 

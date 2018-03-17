@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_review, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_album
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @album = Album.find(params[:album_id])
@@ -16,7 +17,6 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
@@ -30,15 +30,13 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @album = Album.find(params[:album_id])
     @review = Review.new
   end
 
   def create
-    @album = Album.find(params[:album_id].to_i)
     @review = Review.new(review_params)
-    @review.album = @album
-    @review.user = current_user
+    @review.user_id = current_user.id
+    @review.album_id = @album.id
 
     if @review.save
       flash[:notice] = 'Review has been successfully created'
@@ -65,6 +63,10 @@ class ReviewsController < ApplicationController
 
     def set_review
       @review = Review.find(params[:id])
+    end
+
+    def set_album
+      @album = Album.find(params[:album_id])
     end
 
     def review_params
