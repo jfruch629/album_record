@@ -4,8 +4,9 @@
   <div class="review_body_field">
     <strong>Submit your thoughts on this album, below:</strong>
     <%= form.text_field :body, id: :review_body %>
-  </div><br />
-  <div class="actions review_body_field">
-    <%= form.submit 'Save Review' %>
+  <br />
+  <div class="review_button">
+    <%= form.submit 'Save Review', id: 'review_button' %>
+  </div>
   </div>
 <% end %>

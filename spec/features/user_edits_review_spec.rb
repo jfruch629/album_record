@@ -8,8 +8,9 @@ require 'rails_helper'
   } do
 
     scenario 'authenticated user successfully updates album review' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:user, admin: false)
       album = FactoryBot.create(:album, user: user)
+      review = FactoryBot.create(:review, album: album, user: user)
 
 
        visit root_path
@@ -18,9 +19,6 @@ require 'rails_helper'
        fill_in 'Password', with: album.user.password
        click_button 'Sign In'
        click_link album.title
-
-       fill_in 'review_body', with: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
-       click_button 'Save Review'
 
        click_link 'Edit Review'
 
@@ -83,7 +81,7 @@ require 'rails_helper'
 
     end
     scenario "authenticated unsuccesfully updates album review" do
-      user = User.create(first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password")
+      user = FactoryBot.create(:user, admin: false)
       album = FactoryBot.create(:album, user: user)
       review = FactoryBot.create(:review, album: album, user: user)
 
@@ -101,7 +99,7 @@ require 'rails_helper'
 
        click_button 'Save Review'
 
-       expect(page).to have_content('You want to provide a strong review for a good rating, so please provide your explanation with at least 250 characters.')
+       expect(page).to have_content('You want to provide a strong review for a good rating, so please provide your explanation with at least 50 characters.')
        expect(page).to have_content('Edit Review')
        expect(page).to have_button('Save Review')
      end

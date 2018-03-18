@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
 
   def index
     @album = Album.find(params[:album_id])
-    @reviews = @album.reviews.order('created_at DESC')
+    @reviews = @album.reviews.order('created_at ASC')
     @album.reviews.order('created_at DESC')
     @review = Review.new
   end
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
       flash[:notice] = 'Review has been successfully updated'
       redirect_to @album
     else
-      flash[:notice] = 'You want to provide a strong review for a good rating, so please provide your explanation with at least 250 characters.'
+      flash[:notice] = 'You want to provide a strong review for a good rating, so please provide your explanation with at least 50 characters.'
       render 'edit'
     end
   end

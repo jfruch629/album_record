@@ -22,6 +22,7 @@ feature 'user signs in', %Q{
 
     expect(page).to have_content("Hey you!")
     expect(page).to have_content("Sign Out")
+    expect(page).to_not have_content('(signed in as Admin)')
   end
 
   scenario 'a nonexistent email and password is supplied is denied access' do

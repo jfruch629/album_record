@@ -19,6 +19,8 @@ feature 'admin deletes album', %Q{
     click_link 'Albums'
     click_link albums[0].title
 
+    expect(page).to have_content('(signed in as Admin)')
+
     expect(page).to have_content(albums[0].title)
     expect(page).to have_content(albums[0].artist)
     expect(page).to have_content(albums[0].release_year)

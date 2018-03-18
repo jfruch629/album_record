@@ -17,6 +17,9 @@ feature 'admin views reviews', %Q{
     fill_in 'Email', with: admin.email
     fill_in 'Password', with: admin.password
     click_button 'Sign In'
+
+
+    expect(page).to have_content('(signed in as Admin)')
     click_link 'Albums'
 
     expect(page).to have_content("Albums")

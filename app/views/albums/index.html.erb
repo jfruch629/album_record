@@ -1,32 +1,27 @@
-<div class="albums">
-  <div class="album-list-header">
-    <li>Albums</li>
-    <li><%= form_tag(albums_path, :method => "get", id: "album-search-form") do %>
+<div class="search">
+  <li><%= form_tag(albums_path, :method => "get", id: "album-search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Enter Album Info" %>
-    <%= submit_tag "Search Albums", :name => nil %><% end %></li>
-    <hr>
+    <%= submit_tag "Search Albums", :name => nil, id: 'search-button' %><% end %>
+  </li>
+</div>
+
+<div class="album-section">
+  <div class="albums">
+    <div class="album-list-header">
+      <li>Albums</li>
+      <hr>
+      <% if @albums.blank? %>
+        <h4>There is no album containing the term <%= params[:search] %>.</h4>
+        <%= link_to 'Back', root_path, id: 'back-link'%>
+      <% end %>
+    </div>
+
+    <ul>
+      <% @albums.each do |album| %>
+        <div class="album">
+          <li><%= link_to album.title, album, id: album.title %></li>
+        </div>
+      <% end %>
+    </ul>
   </div>
-
- <% if @albums.blank? %>
-  <h4>There is no album containing the term <%= params[:search] %>.</h4>
-  <%= link_to 'Back', root_path, id: 'back-link'%>
-<% end %>
-
- <table>
-   <thead>
-     <tr>
-       <th colspan="3"></th>
-     </tr>
-   </thead>
-
-   <tbody>
-     <% @albums.each do |album| %>
-     <div class="album">
-       <tr>
-         <td><%= link_to album.title, album, id: album.title %></td>
-       </tr>
-     </div>
-     <% end %>
-   </tbody>
- </table>
 </div>

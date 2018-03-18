@@ -15,6 +15,9 @@ feature 'admin deletes user', %Q{
    fill_in 'Email', with: admin.email
    fill_in 'Password', with: admin.password
    click_button 'Sign In'
+
+   expect(page).to have_content('(signed in as Admin)')
+
    click_link 'Users'
    click_link users[0].email
 
@@ -28,5 +31,9 @@ feature 'admin deletes user', %Q{
    expect(page).to_not have_content("Sign In")
 
    expect(page).to_not have_content(users[0].email)
+
+   click_link 'Sign Out'
+
+   click_link 'Sign In'
  end
 end

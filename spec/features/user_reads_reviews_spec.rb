@@ -8,21 +8,22 @@ require 'rails_helper'
   } do
 
     scenario 'user is able to see reviews' do
-    album = FactoryBot.create(:album,
-     user: User.create( first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password"))
-    Review.create(body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.", user: album.user, album: album )
+      user = FactoryBot.create(:user, admin: false)
+      album = FactoryBot.create(:album, user: user)
+      review = FactoryBot.create(:review, album: album, user: user)
 
      visit root_path
      click_link album.title
 
      expect(page).to have_content('Metronomy')
-     expect(page).to have_content("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.")
+     expect(page).to have_content(review.body)
    end
 
 
     scenario 'authenticated user is able to see space to add new review' do
-      album = FactoryBot.create(:album,
-       user: User.create( first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password"))
+      user = FactoryBot.create(:user, admin: false)
+      album = FactoryBot.create(:album, user: user)
+
 
        visit root_path
        click_link 'Sign In'

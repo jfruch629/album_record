@@ -1,70 +1,65 @@
-<div class="album" >
-<h1><%= @album.title %></h2>
-<hr>
 
-<h3>Artist:&nbsp; <%= @album.artist %><h3>
+<h1>Admin</h1>
+<div class="album-section-show">
+  <div class="album-title">
+    <h1><%= @album.title %></h2>
+      <%= image_tag (@album.photo) %>
+    <hr>
+  </div>
 
-<h3>Release Date:&nbsp; <%= @album.release_year %></h3>
+  <div class="album-basics">
+    <h3>Artist:&nbsp; <%= @album.artist %><h3>
+    <h3>Release Date:&nbsp; <%= @album.release_year %></h3>
+    <h3>Genre:&nbsp; <%= @album.genre %> </h3>
+  </div>
 
-<h3>Genre:&nbsp; <%= @album.genre %> </h3>
-
-<% if @album.tracks? %>
-  <p>
-    <b>Tracks:</b><br />
+  <% if @album.tracks? %>
+    <div class="album-basics">
+      <b>Tracks:</b><br />
+    </div>
     <% @album.tracks.each_with_index do |track, n| %>
-      <%= (n + 1) %>. <%= track.to_s %><br />
+      <div class="track">
+        <%= (n + 1) %>. <%= track.to_s %><br />
+      </div>
     <% end %>
-  </p>
-<% else %>
-  <p>No Tracks Listed Yet!</p>
-<% end %>
-<br /><br />
-
- <% if @album.user == current_user %>
-   You uploaded this album!
- <% else %>
-   <%= @user.first_name %> <%= @user.last_name %> <b>(<%= @user.email %>)</b> uploaded this album page.
- <% end %>
-</div>
-<br />
-
-<div class="album-owner-controls">
-  <% if !current_user.nil? %>
-    <% if current_user == @album.user || current_user.admin? %>
-     <%= link_to 'Update', edit_album_path(@album) %> |
-     <%= link_to 'Delete', @album, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
+  <% else %>
+    <p>No Tracks Listed Yet! If you are the album record creator, you can edit this album to include listed tracks.</p>
   <% end %>
-</div>
+  <br /><br />
 
-<%= render "reviews/form", review: @review, album: @album %>
-<br /><br />
+  <% if @album.user == current_user %>
+    You uploaded this album!
+  <% else %>
+    <%= @user.first_name %> <%= @user.last_name %> <b>(<%= @user.email %>)</b> uploaded this album page.
+  <% end %><br />
+     <%= link_to 'Delete', @album, method: :delete, data: { confirm: 'Are you sure?' } %><hr>
+  </div>
+
+</div class="review-form">
+  <%= render "reviews/form", review: @review, album: @album %>
+  <br /><br />
+</div>
 
 <div class="review_body_field">
   <h3>Most Recent Reviews</h3>
+  <hr>
   <% if !(@album.reviews.nil?) %>
-    <tbody>
-      <% @album.reviews.each do |review| %>
-        <tr>
-            <hr><br />
-            <p><%= review.body %><p>
-          <br /><br /><br />
-        </td>
+    <% @album.reviews.each do |review| %>
+      <div class="review">
+        <p>by <%= review.user.first_name %> <%= review.user.last_name %></p>
+        <p><%= review.body %><p>
         <% if review.updated_at? %>
-          recently updated on: <%= review.updated_at.to_s %>
+          <p>recently updated on: <%= review.updated_at.to_s %></p>
         <% else %>
           <p>reviewed on: <%= review.created_at.to_s %></p>
-          <p> by <%= review.user.first_name %> <%= review.user.last_name %></p>
         <% end %><br />
         <div class="admin_review_controls">
           <%= link_to 'Edit Review', edit_album_review_path(review), id: "edit_link" %> /
-          <%= link_to "Delete Review", album_review_path(@album, review), method: :delete, data: { confirm: "You sure?", id: 'delete_review' } %>
+          <%= link_to "Delete Review", album_review_path(@album, review), method: :delete, data: { confirm: "You sure?", id: 'delete_review' } %><hr>
         </div>
         <br /><br />
-      </tr>
     <% end %>
   <% end %>
-</tbody>
 </div>
 <hr>
 

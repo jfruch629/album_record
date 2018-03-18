@@ -8,9 +8,9 @@ require 'rails_helper'
   } do
 
     scenario 'authenticated user deletes their created album review' do
-      album = FactoryBot.create(:album,
-       user: User.create( first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password"))
-      Review.create(body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.", user: album.user, album: album )
+      user = FactoryBot.create(:user, admin: false)
+      album = FactoryBot.create(:album, user: user)
+      review = FactoryBot.create(:review, album: album, user: user)
 
        visit root_path
        click_link 'Sign In'
@@ -28,9 +28,9 @@ require 'rails_helper'
      end
 
     scenario 'unauthenticated user fails to delete a review they created while signed in' do
-      album = FactoryBot.create(:album,
-       user: User.create( first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password"))
-      Review.create(body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.", user: album.user, album: album )
+      user = FactoryBot.create(:user, admin: false)
+      album = FactoryBot.create(:album, user: user)
+      review = FactoryBot.create(:review, album: album, user: user)
 
       visit root_path
       click_link album.title
@@ -39,19 +39,19 @@ require 'rails_helper'
     end
 
     scenario 'authenticated user attempts to delete another users review' do
-      user = User.create({first_name: "John", last_name: "Smith", email: "johnsmith@example.com", password: "johnsmith"})
-      album = FactoryBot.create(:album,
-       user: FactoryBot.create(:user, first_name: "Jill", last_name: "Scott", email: "jill@example.com", password: "password"))
-      Review.create(body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean  commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.", user: user, album: album )
+      user = FactoryBot.create(:user, admin: false)
+      user_2 = FactoryBot.create(:user, admin: false)
+      album = FactoryBot.create(:album, user: user)
+      review = FactoryBot.create(:review, album: album, user: user)
 
       visit root_path
       click_link 'Sign In'
-      fill_in 'Email', with: album.user.email
-      fill_in 'Password', with: album.user.password
+      fill_in 'Email', with: user_2.email
+      fill_in 'Password', with: user_2.password
       click_button 'Sign In'
       click_link album.title
 
-      expect(page).to have_content('by John Smith')
+      expect(page).to have_content(review.user.first_name)
       expect(page).to_not have_content('Edit Review')
       expect(page).to_not have_content('Delete Review')
       expect(page).to have_content('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ae')

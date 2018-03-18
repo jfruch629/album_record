@@ -18,6 +18,7 @@ feature 'admin deletes review', %Q{
      fill_in 'Password', with: admin.password
      click_button 'Sign In'
      expect(page).to have_content("Users")
+     expect(page).to have_content('(signed in as Admin)')
 
      click_link 'Albums'
      click_link albums[0].title

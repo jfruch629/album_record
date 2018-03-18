@@ -20,6 +20,8 @@ feature 'admin views users', %Q{
     expect(page).to have_content("Sign Out")
     expect(page).to have_content("Users")
 
+    expect(page).to have_content('(signed in as Admin)')
+
     click_link 'Users'
 
     expect(page).to have_content("Users")

@@ -15,6 +15,8 @@ feature 'user views all albums', %Q{
   scenario 'user views all albums' do
     visit root_path
 
+    expect(page).to_not have_content('(signed in as Admin)')
+
     expect(page).to have_content('Albums')
     expect(page).to have_content('Sign In')
   end

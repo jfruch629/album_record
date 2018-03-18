@@ -4,11 +4,11 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.all
+    @reviews = Review.all
     if params[:search]
       @albums = Album.search(params[:search])
     end
     root_path = '/'
-    @reviews = Review.all.order('created_at ASC')
   end
 
   def new

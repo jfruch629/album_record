@@ -21,6 +21,7 @@ feature 'admin views albums', %Q{
     expect(page).to have_content("Sign Out")
     expect(page).to have_content("Albums")
     expect(page).to have_content("Users")
+    expect(page).to have_content('(signed in as Admin)')
 
     click_link 'Albums'
 
