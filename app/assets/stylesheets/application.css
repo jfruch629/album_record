@@ -140,8 +140,11 @@
   }
 
   .album-title {
+    width: 40%;
+    margin: auto;
     padding-top: 30px;
-    font-size: 4em;
+    font-size: 3em;
+    padding-bottom: 15px;
   }
 
   .album-basics {

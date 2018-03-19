@@ -1,6 +1,6 @@
 <div class="album-section-show">
   <div class="album-title">
-    <h1><%= @album.title %></h2>
+    <h3><%= @album.title %></h3>
       <%= image_tag (@album.photo) %>
     <hr>
   </div>
@@ -24,6 +24,11 @@
     <p>No Tracks Listed Yet! If you are the album record creator, you can edit this album to include listed tracks.</p>
   <% end %>
   <br /><br />
+
+  <div class+'album-basics'>
+    <p><%= @album.summary %><p>
+  </div><br />
+
 
   <% if @album.user == current_user %>
     You uploaded this album!
