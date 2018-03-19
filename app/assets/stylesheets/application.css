@@ -97,6 +97,8 @@
   }
 
   a.logo {
+    margin-left: 5px;
+    margin-right: 5px;
     color: #FBC994;
   }
 
@@ -106,7 +108,7 @@
     text-align: center;
     padding: 14px 16px;
     margin: auto;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .top-bar-section li {
@@ -197,6 +199,10 @@
 
   .album a{
     color: #708090;
+  }
+
+  .album-timestamp {
+    font-size: 12px;
   }
 
   .user-list-header {

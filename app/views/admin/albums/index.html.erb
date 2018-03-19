@@ -19,7 +19,8 @@
     <ul>
       <% @albums.each do |album| %>
         <div class="album">
-          <li><%= link_to album.title, admin_album_path(album), id: album.title %></li>
+          <li><%= link_to album.title, admin_album_path(album), id: album.title %>
+        <div class="album-timestamp">created at: <%= album.created_at%></div></small></li>
         </div>
       <% end %>
     </ul>

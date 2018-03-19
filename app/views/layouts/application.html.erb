@@ -19,7 +19,7 @@
             <% if user_signed_in? %>
               <li><%= link_to 'Add Album', new_album_path %></li>
               <li><%= link_to 'Sign Out', destroy_user_session_path, :method   => :delete %></li>
-              <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+              <li><%= link_to 'Edit Profile', edit_user_registration_path %></li><br />
               <% if current_user.admin? %>
                 <p>(signed in as Admin)</p>
                 <li><%= link_to "Users", admin_users_path	 %></li>
